@@ -1,16 +1,19 @@
 package com.jimfkong.foodutilityoptimiser
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_food_utility_optimiser.*
 
 class FoodUtilityOptimiser : AppCompatActivity() {
     private var items: ArrayList<KnapsackItemView> = ArrayList()
     private lateinit var listRoot: LinearLayout
+    private lateinit var weightView: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,7 @@ class FoodUtilityOptimiser : AppCompatActivity() {
 //                )
 //        )
 
+        weightView = findViewById(R.id.max_weight)
         listRoot = findViewById(R.id.item_list)
 
         addItem(listRoot)
@@ -46,6 +50,11 @@ class FoodUtilityOptimiser : AppCompatActivity() {
     }
 
     fun calculate(view: View) {
+        if (!canCalculate()) {
+            Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val request = KnapsackRequest(
             arrayOf(),
             getWeight()
@@ -60,10 +69,42 @@ class FoodUtilityOptimiser : AppCompatActivity() {
         }
 
         val x = Knapsack().PassKotlinObject(request)
+
+        showDialog(x)
+    }
+
+    private fun canCalculate(): Boolean {
+        if (weightView.text.toString().isNullOrEmpty()) {
+            return false
+        }
+
+        for (item in items) {
+            if (!item.isValidState()) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    private fun showDialog(text: String) {
+        val dialogBuilder = AlertDialog.Builder(this)
+
+        with(dialogBuilder) {
+            setTitle("What to eat")
+            setMessage(if (text.isEmpty()) "Nothing!" else text)
+            setPositiveButton("Dismiss") {
+                dialog, _ ->
+                dialog.dismiss()
+            }
+        }
+
+        val dialog = dialogBuilder.create()
+        dialog.show()
     }
 
     private fun getWeight(): Int {
-        return (findViewById<EditText>(R.id.max_weight)).text.toString().toInt()
+        return weightView.text.toString().toInt()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

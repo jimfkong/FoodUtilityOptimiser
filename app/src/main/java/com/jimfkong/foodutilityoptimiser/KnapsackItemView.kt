@@ -47,4 +47,15 @@ class KnapsackItemView @JvmOverloads constructor(
     fun getWeight(): Int {
         return weightView.text.toString().toInt()
     }
+
+    fun isValidState(): Boolean {
+        return (hasText(nameView) &&
+                hasText(valueView) &&
+                hasText(weightView)
+        )
+    }
+
+    private fun hasText(view: EditText): Boolean {
+        return !view.text.toString().isNullOrEmpty()
+    }
 }
