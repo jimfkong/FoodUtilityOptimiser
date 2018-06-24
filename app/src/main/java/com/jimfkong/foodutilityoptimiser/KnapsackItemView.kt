@@ -37,7 +37,7 @@ class KnapsackItemView @JvmOverloads constructor(
     }
 
     fun getName(): String {
-        return nameView.text.toString()
+        return cleanText(nameView.text.toString())
     }
 
     fun getValue(): Int {
@@ -57,5 +57,9 @@ class KnapsackItemView @JvmOverloads constructor(
 
     private fun hasText(view: EditText): Boolean {
         return !view.text.toString().isNullOrEmpty()
+    }
+
+    private fun cleanText(input: String): String {
+        return input.replace(",", "")
     }
 }

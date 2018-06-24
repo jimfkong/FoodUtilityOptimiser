@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_food_utility_optimiser"
-    tools:context=".FoodUtilityOptimiser"
->
-    <include layout="@layout/settings" />
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
-        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:id="@+id/item_list"
-    />
-    <include layout="@layout/add_item" />
-    <include layout="@layout/calculate" />
-</LinearLayout>
+        android:orientation="vertical"
+        tools:showIn="@layout/activity_food_utility_optimiser"
+        tools:context=".FoodUtilityOptimiser"
+    >
+        <include layout="@layout/settings" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:id="@+id/item_list"
+        />
+        <include layout="@layout/add_item" />
+        <include layout="@layout/calculate" />
+    </LinearLayout>
+</ScrollView>

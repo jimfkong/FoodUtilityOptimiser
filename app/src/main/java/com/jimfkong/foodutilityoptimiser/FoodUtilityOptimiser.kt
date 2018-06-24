@@ -10,6 +10,9 @@ import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_food_utility_optimiser.*
 
+// TODO Need to handle commas and stuff
+// TODO figure out why weight of 1 doesn't seem to work?
+
 class FoodUtilityOptimiser : AppCompatActivity() {
     private var items: ArrayList<KnapsackItemView> = ArrayList()
     private lateinit var listRoot: LinearLayout
@@ -68,9 +71,17 @@ class FoodUtilityOptimiser : AppCompatActivity() {
             )
         }
 
-        val x = Knapsack().PassKotlinObject(request)
+        val result = Knapsack().PassKotlinObject(request)
 
-        showDialog(x)
+        showDialog(formatResult(result))
+    }
+
+    private fun formatResult(result: String): String {
+        if (result.isNullOrEmpty()) {
+            return result
+        }
+
+        return result.replace(',', '\n')
     }
 
     private fun canCalculate(): Boolean {
