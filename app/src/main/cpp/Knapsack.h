@@ -23,7 +23,8 @@ public:
 private:
     std::vector<std::shared_ptr<KnapsackItem>> getItemsInKnapsack(
             std::vector<std::vector<int>>& weightMatrix,
-            std::vector<std::shared_ptr<KnapsackItem>>& items);
+            std::vector<std::shared_ptr<KnapsackItem>>& items,
+            int maxWeight);
 };
 
 #endif //FOODUTILITYOPTIMISER_KNAPSACK_H

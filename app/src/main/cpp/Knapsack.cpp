@@ -31,7 +31,8 @@ std::vector<std::shared_ptr<KnapsackItem>> Knapsack::calculateKnapsack(
             {
                 // Get the best of either including the item + the previous best we could fit if we included the item, or excluding the item
                 auto valueWithCurrentItem = items[currentItem - 1]->getValue() +
-                                            weightMatrix[currentItem - 1][currentWeight - items[currentItem - 1]->getWeight()];
+                                            weightMatrix[currentItem - 1][currentWeight -
+                                            items[currentItem - 1]->getWeight()];
 
                 auto previousBest = weightMatrix[currentItem - 1][currentWeight];
 
@@ -41,14 +42,17 @@ std::vector<std::shared_ptr<KnapsackItem>> Knapsack::calculateKnapsack(
         }
     }
 
-    return getItemsInKnapsack(weightMatrix, items);
+    return getItemsInKnapsack(weightMatrix, items, maxWeight);
 }
 
-std::vector<std::shared_ptr<KnapsackItem>> Knapsack::getItemsInKnapsack(std::vector<std::vector<int>>& weightMatrix, std::vector<std::shared_ptr<KnapsackItem>>& items)
+std::vector<std::shared_ptr<KnapsackItem>> Knapsack::getItemsInKnapsack(
+        std::vector<std::vector<int>>& weightMatrix,
+        std::vector<std::shared_ptr<KnapsackItem>>& items,
+        int maxWeight)
 {
     // Given the weight matrix, work backwards
     auto nItems = items.size();
-    auto currentWeight = weightMatrix.size();
+    auto currentWeight = maxWeight;
     std::vector<std::shared_ptr<KnapsackItem>> knapsack;
 
     for (auto currentItem = nItems; currentItem > 0; currentItem--)
